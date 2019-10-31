@@ -887,6 +887,12 @@ function lti_build_request($instance, $typeconfig, $course, $typeid = null, $isl
     ) {
         $requestparams['lis_person_contact_email_primary'] = $USER->email;
     }
+    
+    if (!empty($course->id) and $course->id != SITEID and !empty($course->lang)) {
+        $requestparams['ext_context_locale'] = $course->lang;
+    } else if (isset($CFG->lang)) {
+        $requestparams['ext_context_locale'] = $CFG->lang;
+    }
 
     return $requestparams;
 }
